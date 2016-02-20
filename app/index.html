@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="contactManagerApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+		<title></title>
+		<link rel="stylesheet" href="">
+
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+		<link rel="stylesheet" type="text/css" href="../node_modules/angular-material/angular-material.min.css" />
+		<link rel="stylesheet" type="text/css" href="assets/app.css" />
+		<style>
+			[ng-cloak] {
+				display:none;
+			}
+		</style>
+	</head>
+	<body layout="row" ng-cloak ng-controller="mainController as vm">
+		
+		<div flex="30" ng-include="'dist/views/sidenav.html'" layout="vertical"></div>
+
+		<div layout="column" flex>
+			<div ng-include="'dist/views/toolbar-header.html'"></div>			
+			
+			<md-content flex>
+			    Main Content
+			</md-content>
+		</div>
+
+		<script src="../node_modules/angular/angular.js"></script>
+		<script src="../node_modules/angular-animate/angular-animate.min.js"></script>
+		<script src="../node_modules/angular-aria/angular-aria.min.js"></script>
+		<script src="../node_modules/angular-material/angular-material.min.js"></script>
+
+		<script src="dist/controllers/mainController.js"></script>
+		<script src="dist/services/userService.js"></script>
+		<script src="dist/boot.js"></script>
+	</body>
+</html>
