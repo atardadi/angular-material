@@ -1,9 +1,25 @@
 <md-toolbar>
 	<div class="md-toolbar-tools">
 	  <md-button hide-gt-sm class="md-icon-button" ng-click="vm.toggleSidenav()">
-	    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-	    Toggle
+	    <md-icon md-svg-icon="menu"></md-icon>
 	  </md-button>
 	  <h1>Contact Manager</h1>
+	  <md-fab-speed-dial 
+	  	md-direction="down" 
+  		class="md-fling md-fab-top-right">
+			<md-fab-trigger>
+				<md-button class="md-fab">
+					<md-icon md-svg-icon="menu"></md-icon>
+				</md-button>
+			</md-fab-trigger>
+			<md-fab-actions>
+				<md-button class="md-fab md-raised md-mini">
+					<ng-md-icon icon="face"></ng-md-icon>
+				</md-button>
+				<md-button class="md-fab md-raised md-mini">
+					<ng-md-icon icon="clear"></ng-md-icon>
+				</md-button>
+			</md-fab-actions>
+  	</md-fab-speed-dial>
   </div>
 </md-toolbar>

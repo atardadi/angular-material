@@ -1,11 +1,44 @@
-
-
-	<md-sidenav 
-		class="md-sidenav-left md-whiteframe-z2" 
-		md-component-id="left" 
-		md-is-locked-open="$mdMedia('gt-sm')">
-		<md-toolbar>
-			<h1>Contacts</h1>
-		</md-toolbar>
-	</md-sidenav>
+<md-sidenav 
+	class="md-sidenav-left md-whiteframe-z2" 
+	md-component-id="left" 
+	md-is-locked-open="$mdMedia('gt-sm')">
+	<md-toolbar>
+		<h1>Contacts</h1>
+	</md-toolbar>
+	<div layout-padding>
+		<md-autocomplete 
+			md-search-text="vm.searchText" 
+			md-items="item in vm.users | filter: vm.searchText" 
+			md-item-text="item.name"
+			md-min-length="2"
+			placeholder="Filter">
+		  <md-item-template>
+		  	<span 
+		  		md-highlight-text="vm.searchText"
+		  		md-highlight-flags="^i">
+		  		{{item.name}}
+	  		</span>
+		  </md-item-template>
+		  <md-not-found>
+		  	No Matches Found.
+		  </md-not-found>
+		</md-autocomplete>
+	</div>
+	<md-content class="scollable-nav-content">
+		<md-list>
+			<md-list-item 
+				ng-repeat="user in vm.users | filter: vm.searchText | orderBy: 'name'">
+				<md-button 
+					ng-click="vm.selectUser(user)"
+					ng-class="{'selected': user === vm.selected}">
+					<md-icon md-svg-icon="{{user.avatar}}" class="avatar"></md-icon>
+					<span ng-bind="user.name"></span>
+				</md-button>
+			</md-list-item>
+		</md-list>
+	</md-content>
+	<md-button class="md-fab md-fab-bottom-right" ng-click="vm.addUser($event)">
+		<ng-md-icon icon="add"></ng-md-icon>
+	</md-button>
+</md-sidenav>
 	

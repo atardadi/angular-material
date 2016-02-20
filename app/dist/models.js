@@ -9,7 +9,7 @@ var ContactManagerApp;
             this.notes = notes;
         }
         return User;
-    })();
+    }());
     ContactManagerApp.User = User;
     var Note = (function () {
         function Note(title, date) {
@@ -17,7 +17,7 @@ var ContactManagerApp;
             this.date = date;
         }
         return Note;
-    })();
+    }());
     ContactManagerApp.Note = Note;
 })(ContactManagerApp || (ContactManagerApp = {}));
 //# sourceMappingURL=models.js.map
