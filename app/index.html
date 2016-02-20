@@ -25,7 +25,7 @@
 		
 		<div ng-include="'dist/views/sidenav.html'" layout="vertical"></div>
 
-		<div layout="column" flex>
+		<div layout="column" flex id="wrapper">
 			<div ng-include="'dist/views/toolbar-header.html'"></div>			
 			
 			<md-content flex>
@@ -53,7 +53,10 @@
 		<script src="../node_modules/angular-material-icons/angular-material-icons.min.js"></script>
 
 		<!-- App -->
+		<script src="dist/models.js"></script>
+		<script src="dist/controllers/addUserDialogController.js"></script>
 		<script src="dist/controllers/mainController.js"></script>
+		<script src="dist/controllers/contactPanelController.js"></script>
 		<script src="dist/services/userService.js"></script>
 		<script src="dist/boot.js"></script>
 	</body>

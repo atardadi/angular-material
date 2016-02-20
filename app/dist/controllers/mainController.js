@@ -2,10 +2,13 @@
 var ContactManagerApp;
 (function (ContactManagerApp) {
     var MainController = (function () {
-        function MainController(userService, $mdSidenav, $mdToast) {
+        function MainController(userService, $mdSidenav, $mdToast, $mdDialog, $mdMedia, $mdBottomSheet) {
             this.userService = userService;
             this.$mdSidenav = $mdSidenav;
             this.$mdToast = $mdToast;
+            this.$mdDialog = $mdDialog;
+            this.$mdMedia = $mdMedia;
+            this.$mdBottomSheet = $mdBottomSheet;
             this.tabIndex = 0;
             this.searchText = '';
             this.users = [];
@@ -17,19 +20,49 @@ var ContactManagerApp;
                 .then(function (users) {
                 self.users = users;
                 self.selected = users[0];
+                self.userService.selectedUser = self.selected;
                 console.log(self.users);
             });
         }
         MainController.prototype.selectUser = function (user) {
             this.selected = user;
+            this.userService.selectedUser = this.selected;
             var sidenav = this.$mdSidenav('left');
             if (sidenav.isOpen()) {
                 sidenav.close();
             }
             this.tabIndex = 0;
         };
+        MainController.prototype.showContactOptions = function ($event) {
+            this.$mdBottomSheet.show({
+                parent: document.getElementById('wrapper'),
+                templateUrl: './dist/views/contactSheet.html',
+                controller: 'ContactPanelController',
+                controllerAs: 'cp',
+                bindToController: true,
+                targetEvent: $event
+            }).then(function (clickedItem) {
+                clickedItem && console.log(clickedItem.name + ' clicked!');
+            });
+        };
         MainController.prototype.toggleSidenav = function () {
             this.$mdSidenav('left').toggle();
+        };
+        MainController.prototype.addUser = function ($event) {
+            var self = this;
+            var useFullScreen = (this.$mdMedia('sm') || this.$mdMedia('xs'));
+            this.$mdDialog.show({
+                templateUrl: './dist/views/newUserDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: 'AddUserDialogController',
+                controllerAs: 'ctrl',
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen
+            }).then(function (user) {
+            }, function () {
+                console.log('Cancel...');
+            });
         };
         MainController.prototype.removeNote = function (note) {
             var foundIndex = this.selected.notes.indexOf(note);
@@ -42,7 +75,21 @@ var ContactManagerApp;
                 .position('top right')
                 .hideDelay(3000));
         };
-        MainController.$inject = ['userService', '$mdSidenav', '$mdToast'];
+        MainController.prototype.clearNotes = function ($event) {
+            var confirm = this.$mdDialog.confirm()
+                .title('Are you sure?')
+                .textContent('Really Sure?')
+                .targetEvent($event)
+                .ok('Yup')
+                .cancel('Nope');
+            var self = this;
+            this.$mdDialog.show(confirm)
+                .then(function () {
+                self.selected.notes = [];
+                self.openToast('Cleared Notes');
+            });
+        };
+        MainController.$inject = ['userService', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet'];
         return MainController;
     }());
     ContactManagerApp.MainController = MainController;

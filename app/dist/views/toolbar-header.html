@@ -13,11 +13,22 @@
 				</md-button>
 			</md-fab-trigger>
 			<md-fab-actions>
-				<md-button class="md-fab md-raised md-mini">
+				<md-button class="md-fab md-raised md-mini"
+					ng-click="vm.showContactOptions($event)">
 					<ng-md-icon icon="face"></ng-md-icon>
+					<md-tooltip md-direction="left">
+					  Contact
+					</md-tooltip>
 				</md-button>
-				<md-button class="md-fab md-raised md-mini">
-					<ng-md-icon icon="clear"></ng-md-icon>
+				<md-button 
+					class="md-fab md-raised md-mini"
+					ng-click="vm.clearNotes($event)">
+					<ng-md-icon 
+						icon="clear">
+					</ng-md-icon>
+					<md-tooltip md-direction="left">
+					  Clear All Notes
+					</md-tooltip>
 				</md-button>
 			</md-fab-actions>
   	</md-fab-speed-dial>
