@@ -1,10 +1,11 @@
+<div ng-include="'dist/views/tab-notes-form.html'"></div>
 <p ng-if="!vm.selected.notes.length">
 	No Notes for {{vm.selected.name}}, yet.
 </p>
 
 <md-content>
 	<md-card ng-repeat="note in vm.selected.notes | orderBy:'-date':true">
-			
+					
 		<md-card-content>
 			<h3 ng-bind="note.title"></h3>
 			<p ng-bind="note.date | date: 'MM/dd/yyyy'"></p>

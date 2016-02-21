@@ -27,7 +27,7 @@ module ContactManagerApp {
 		searchText: string = '';
 		users: User[] = [];
 		selected: User = null;
-		message: string = "Hello from Controller";
+		newNote: Note = new Note('', null);
 		
 		selectUser(user: User): void {
 			this.selected = user;
@@ -70,12 +70,28 @@ module ContactManagerApp {
 				controllerAs: 'ctrl',
 				clickOutsideToClose: true,
 				fullscreen: useFullScreen
-			}).then((user: User) => {
-				
+			}).then((user: CreateUser) => {
+				var newUser: User = User.fromCreate(user);
+				this.users.push(newUser);
+				this.selected = newUser;
 			},
 			() => {
 				console.log('Cancel...');
 			});
+		}
+
+		formScope: any;
+		setFormScope(scope) {
+			this.formScope = scope;
+		}
+		addNote() {
+			this.selected.notes.push(this.newNote);
+
+			this.formScope.noteForm.$setUntouched();
+			this.formScope.noteForm.$setPristine();
+
+			this.newNote = new Note('', null);
+			this.openToast('Note Added!');
 		}
 
 		removeNote(note: Note): void {

@@ -17,7 +17,7 @@ var ContactManagerApp;
         };
         ContactPanelController.$inject = ['userService', '$mdBottomSheet'];
         return ContactPanelController;
-    }());
+    })();
     ContactManagerApp.ContactPanelController = ContactPanelController;
 })(ContactManagerApp || (ContactManagerApp = {}));
 //# sourceMappingURL=contactPanelController.js.map

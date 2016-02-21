@@ -1,7 +1,7 @@
 /// <reference path="_all.ts" />
 
 module ContactManagerApp {
-	angular.module('contactManagerApp', ['ngMaterial','ngMdIcons'])
+	angular.module('contactManagerApp', ['ngMaterial','ngMdIcons','ngMessages'])
 		.service('userService', UserService)
 		.controller('mainController', MainController)
 		.controller('AddUserDialogController', AddUserDialogController)

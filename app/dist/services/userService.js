@@ -39,7 +39,7 @@ var ContactManagerApp;
             return this.$q.when(this.users);
         };
         return UserService;
-    }());
+    })();
     ContactManagerApp.UserService = UserService;
 })(ContactManagerApp || (ContactManagerApp = {}));
 //# sourceMappingURL=userService.js.map

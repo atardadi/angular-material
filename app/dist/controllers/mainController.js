@@ -13,7 +13,7 @@ var ContactManagerApp;
             this.searchText = '';
             this.users = [];
             this.selected = null;
-            this.message = "Hello from Controller";
+            this.newNote = new ContactManagerApp.Note('', null);
             var self = this;
             this.userService
                 .loadAllUsers()
@@ -49,6 +49,7 @@ var ContactManagerApp;
             this.$mdSidenav('left').toggle();
         };
         MainController.prototype.addUser = function ($event) {
+            var _this = this;
             var self = this;
             var useFullScreen = (this.$mdMedia('sm') || this.$mdMedia('xs'));
             this.$mdDialog.show({
@@ -60,9 +61,22 @@ var ContactManagerApp;
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen
             }).then(function (user) {
+                var newUser = ContactManagerApp.User.fromCreate(user);
+                _this.users.push(newUser);
+                _this.selected = newUser;
             }, function () {
                 console.log('Cancel...');
             });
+        };
+        MainController.prototype.setFormScope = function (scope) {
+            this.formScope = scope;
+        };
+        MainController.prototype.addNote = function () {
+            this.selected.notes.push(this.newNote);
+            this.formScope.noteForm.$setUntouched();
+            this.formScope.noteForm.$setPristine();
+            this.newNote = new ContactManagerApp.Note('', null);
+            this.openToast('Note Added!');
         };
         MainController.prototype.removeNote = function (note) {
             var foundIndex = this.selected.notes.indexOf(note);
@@ -91,7 +105,7 @@ var ContactManagerApp;
         };
         MainController.$inject = ['userService', '$mdSidenav', '$mdToast', '$mdDialog', '$mdMedia', '$mdBottomSheet'];
         return MainController;
-    }());
+    })();
     ContactManagerApp.MainController = MainController;
 })(ContactManagerApp || (ContactManagerApp = {}));
 //# sourceMappingURL=mainController.js.map

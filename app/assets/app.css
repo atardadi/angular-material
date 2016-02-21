@@ -68,3 +68,7 @@ span.name {
   font-size: 1.1em;
   padding-left: 5px;
 }
+
+.date-row {
+  margin: 16px 0;
+}
